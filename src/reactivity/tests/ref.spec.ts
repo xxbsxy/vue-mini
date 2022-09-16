@@ -1,6 +1,6 @@
-import { effect} from '../effect'
+import { effect } from '../effect'
 import { reactive } from '../reactive'
-import {isRef, proxyRefs, ref, unRef} from '../ref'
+import { isRef, proxyRefs, ref, unRef } from '../ref'
 describe('ref', () => {
 	it('init', () => {
 		const foo = ref(1)
@@ -24,7 +24,7 @@ describe('ref', () => {
 		expect(dummy).toBe(2)
 	})
 	it('ref transform reactive', () => {
-		const foo = ref({count:1})
+		const foo = ref({ count: 1 })
 		let dummy
 		effect(() => {
 			dummy = foo.value.count
@@ -35,7 +35,7 @@ describe('ref', () => {
 	})
 	it('isRef', () => {
 		const foo = ref(2)
-		const user = reactive({num:1})
+		const user = reactive({ num: 1 })
 		expect(isRef(foo)).toBe(true)
 		expect(isRef(5)).toBe(false)
 		expect(isRef(user)).toBe(false)
@@ -45,14 +45,14 @@ describe('ref', () => {
 		expect(unRef(foo)).toBe(2)
 		expect(unRef(5)).toBe(5)
 	})
-	
+
 	it('proxyRefs', () => {
 		//template模板里使用ref不需要.value
 		const user = {
-			age:ref(10),
+			age: ref(10),
 			name: 'xiaoming'
 		}
-		const proxyUser =  proxyRefs(user)
+		const proxyUser = proxyRefs(user)
 		expect(user.age.value).toBe(10)
 		expect(proxyUser.age).toBe(10)
 		expect(proxyUser.name).toBe('xiaoming')

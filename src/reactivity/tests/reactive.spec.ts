@@ -1,8 +1,8 @@
-import {isReactive, reactive}  from '../reactive'
+import { isReactive, reactive } from '../reactive'
 
 describe('reactive', () => {
 	it('init', () => {
-		const origin = {num : 1}
+		const origin = { num: 1 }
 		const observe = reactive(origin)
 		expect(observe).not.toBe(origin)
 		expect(observe.num).toBe(1)
@@ -11,10 +11,10 @@ describe('reactive', () => {
 	})
 	it('nested reactive', () => {
 		const origin = {
-			nested:{
-				num:1
+			nested: {
+				num: 1
 			},
-			array:[{foo:2}]
+			array: [{ foo: 2 }]
 		}
 		const observe = reactive(origin)
 		expect(isReactive(observe.nested)).toBe(true)

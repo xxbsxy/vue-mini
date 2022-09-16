@@ -1,4 +1,4 @@
-class ReactiveEffect {
+export class ReactiveEffect {
 	private _fn: any
 	deps = []
 	active = true //stop状态false为stop状态
@@ -7,7 +7,7 @@ class ReactiveEffect {
 		this._fn = fn
 	}
 	run() {
-		if(!this.active) {
+		if (!this.active) {
 			return this._fn()
 		}
 
@@ -21,9 +21,9 @@ class ReactiveEffect {
 		return result
 	}
 	stop() {
-		if(this.active) {
+		if (this.active) {
 			cleanEffect(this)
-			if(this.onStop) {
+			if (this.onStop) {
 				this.onStop()
 			}
 			this.active = false
@@ -43,12 +43,12 @@ function cleanEffect(effect) {
 const targetMap = new Map()
 
 export function isTracking() {
-	return activeEffect === undefined || shouldTrack === false 
+	return activeEffect === undefined || shouldTrack === false
 }
 //收集依赖
 export function track(target, key) {
 
-	if(isTracking()) return
+	if (isTracking()) return
 
 	let depsMap = targetMap.get(target)
 	if (!depsMap) {
@@ -63,7 +63,7 @@ export function track(target, key) {
 	trackEffects(dep)
 }
 export function trackEffects(dep) {
-	if(dep.has(activeEffect)) return
+	if (dep.has(activeEffect)) return
 	dep.add(activeEffect)
 	//反向收集dep stop函数需要使用
 	activeEffect.deps.push(dep)

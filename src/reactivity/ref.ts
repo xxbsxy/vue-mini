@@ -23,8 +23,8 @@ class RefImpl {
 	set value(newValue) {
 		//数据发生改变才进行触发依赖
 		if (hasChange(newValue, this._rawValue)) {
-			this._rawValue = newValue 
-		  this._value = isObject(newValue) ? reactive(newValue) : newValue
+			this._rawValue = newValue
+			this._value = isObject(newValue) ? reactive(newValue) : newValue
 			triggerEffects(this.dep)
 		}
 
@@ -38,11 +38,11 @@ export function ref(value) {
 export function proxyRefs(object) {
 	return new Proxy(object, {
 		get(target, key) {
-			return unRef(Reflect.get(target, key)) 
+			return unRef(Reflect.get(target, key))
 		},
 		set(target, key, value) {
-			if(isRef(target[key]) &&  !isRef(value)) {
-			 return target[key].value = value
+			if (isRef(target[key]) && !isRef(value)) {
+				return target[key].value = value
 			} else {
 				return Reflect.set(target, key, value)
 			}
@@ -50,10 +50,10 @@ export function proxyRefs(object) {
 	})
 }
 
-export function isRef (ref) {
+export function isRef(ref) {
 	return !!ref._isRef
 }
 
-export function unRef (ref) {
-	return isRef(ref)? ref.value : ref
+export function unRef(ref) {
+	return isRef(ref) ? ref.value : ref
 }
